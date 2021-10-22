@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup 
 import requests  # đọc dữ liệu về
 import json  # chuyển thành json để truy cập vào lấy dữ liệu
 import csv  # chuyển data thành dạng CSV 
@@ -7,10 +7,11 @@ import pandas as pd  # đọc và ghi file nhanh hơn
 from requests.api import request
 from requests.models import Response
 
-thucphamtuoisong_url_page = "https://tiki.vn/api/personalish/v1/blocks/listings"
+list_product_url = "https://tiki.vn/api/personalish/v1/blocks/listings"
 
-product_url = "https://tiki.vn/api/v2/products/{}"
-rating_url = "https://tiki.vn/api/v2/reviews?limit=5&include=comments,contribute_info&sort=score%7Cdesc,id%7Cdesc,stars%7Call&page=1&product_id={}"
+detail_product_url = "https://tiki.vn/api/v2/products/{}"
+
+product_rating_url = "https://tiki.vn/api/v2/reviews?limit=5&include=comments,contribute_info&sort=score%7Cdesc,id%7Cdesc,stars%7Call&page=1&product_id={}"
 
 product_id_file = "./data/product-id.txt"
 product_file = "./data/product.txt"
@@ -51,7 +52,6 @@ def crawl_product_id(page, limit, category):
     # print('len(product_list)', len(product_list))
     return product_list
 
-
 def write_csv_file(data_matrix, file_path, mode='w'):
     df = pd.DataFrame(data=data_matrix)
     df.to_csv(file_path, sep=',', encoding='utf-8-sig',
@@ -63,7 +63,6 @@ def read_matrix_file(file_path):
         file_path, sep='\t', encoding='utf-8-sig', header=None)
     f = f.to_numpy()
     return f
-
 
 def crawl_product(product_list):
     product_detail_list = np.array(
@@ -110,7 +109,6 @@ def crawl_product(product_list):
             product_detail_list, [[id, ten, gia, phanloai, thuonghieu, xuatxu, xuatxuthuonghieu, sku, mota]], axis=0)
     return product_detail_list  # luu vao product_detail_list
 
-
 def crawl_rating(product_list):
     for product_id in product_list:
         userid = -1
@@ -151,7 +149,6 @@ def crawl_rating(product_list):
                     write_csv_file(rating_list, rating_file, mode='a')
                 i += 1
     return 1
-
 
 # crawl id tat ca san pham
 product_list = crawl_product_id(3, 48, 44792)
