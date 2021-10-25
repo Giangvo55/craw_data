@@ -1,0 +1,3 @@
+- Đây là toàn bộ data về Thịt của Tiki
+- Trong đây cào 30 trang, 2087 product_id, 47362comments 
+- Ngày cào : 24.10.2021
